@@ -16,7 +16,7 @@ namespace Api
 
     public class ProductData : IProductData
     {
-        private readonly List<Product> products = new List<Product>
+        private readonly List<Product> _products = new List<Product>
         {
             new Product
             {
@@ -50,27 +50,27 @@ namespace Api
         public Task<Product> AddProduct(Product product)
         {
             product.Id = GetRandomInt();
-            products.Add(product);
+            _products.Add(product);
             return Task.FromResult(product);
         }
 
         public Task<Product> UpdateProduct(Product product)
         {
-            var index = products.FindIndex(p => p.Id == product.Id);
-            products[index] = product;
+            var index = _products.FindIndex(p => p.Id == product.Id);
+            _products[index] = product;
             return Task.FromResult(product);
         }
 
         public Task<bool> DeleteProduct(int id)
         {
-            var index = products.FindIndex(p => p.Id == id);
-            products.RemoveAt(index);
+            var index = _products.FindIndex(p => p.Id == id);
+            _products.RemoveAt(index);
             return Task.FromResult(true);
         }
 
         public Task<IEnumerable<Product>> GetProducts()
         {
-            return Task.FromResult(products.AsEnumerable());
+            return Task.FromResult(_products.AsEnumerable());
         }
     }
 }

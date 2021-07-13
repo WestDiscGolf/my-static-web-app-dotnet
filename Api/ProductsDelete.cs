@@ -9,11 +9,11 @@ namespace Api
 {
     public class ProductsDelete
     {
-        private readonly IProductData productData;
+        private readonly IProductData _productData;
 
         public ProductsDelete(IProductData productData)
         {
-            this.productData = productData;
+            _productData = productData;
         }
 
         [FunctionName("ProductsDelete")]
@@ -22,7 +22,7 @@ namespace Api
             int productId,
             ILogger log)
         {
-            var result = await productData.DeleteProduct(productId);
+            var result = await _productData.DeleteProduct(productId);
 
             if (result)
             {

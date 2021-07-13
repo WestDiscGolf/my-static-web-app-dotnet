@@ -12,11 +12,11 @@ namespace Api
 {
     public class ProductsPut
     {
-        private readonly IProductData productData;
+        private readonly IProductData _productData;
 
         public ProductsPut(IProductData productData)
         {
-            this.productData = productData;
+            _productData = productData;
         }
 
         [FunctionName("ProductsPut")]
@@ -27,7 +27,7 @@ namespace Api
             var body = await new StreamReader(req.Body).ReadToEndAsync();
             var product = JsonSerializer.Deserialize<Product>(body, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
 
-            var updatedProduct = await productData.UpdateProduct(product);
+            var updatedProduct = await _productData.UpdateProduct(product);
             return new OkObjectResult(updatedProduct);
         }
     }
